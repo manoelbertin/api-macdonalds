@@ -9,6 +9,9 @@ gem "pg", "~> 1.1"
 
 gem "puma", "~> 5.0"
 
+# Auth
+gem 'devise_token_auth', '~> 1.1.4'
+
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 
 gem "bootsnap", require: false
