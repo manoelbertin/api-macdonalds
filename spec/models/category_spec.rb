@@ -7,5 +7,6 @@ RSpec.describe Category, type: :model do
   it { is_expected.to have_many(:product_categories).dependent(:destroy) }
   # se eu apagar uma categoria, todas associações com essa categoria apagada será destruida
   it { is_expected.to have_many(:products).through(:product_categories) }
-  # através dessa relação q categoria tem com product_category, vamos ter uma
+  # 'através' dessa relação q categoria tem com product_category, vamos ter uma
   # relação DIRETA com nosso produto.
+end
