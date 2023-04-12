@@ -20,4 +20,5 @@ describe FutureDateValidator do
       subject.valid?
       expect(subject.errors.keys).to include(:date)
     end
+  end
 end
