@@ -5,3 +5,7 @@ class Validatable
   attr_accessor :date
   validates :date, future_date: true
 end
+
+describe FutureDateValidator do
+  subject { Validatable.new }
+end
