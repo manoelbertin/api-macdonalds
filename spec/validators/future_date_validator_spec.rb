@@ -33,4 +33,11 @@ describe FutureDateValidator do
       expect(subject.errors.keys).to include(:date)
     end
   end
+  context "when date is greater than current date" do
+    before { subject.date = 1.day }
+  
+    it "should be valid" do
+      expect(subject.valid?).to be_truthy
+    end
+  end
 end
