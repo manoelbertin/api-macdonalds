@@ -18,7 +18,7 @@ describe FutureDateValidator do
     
     it "adds an error on model" do
       subject.valid?
-      expect(subject.errors.keys).to include(:date)
+      expect(subject.errors.add :date)
     end
   end
   context "when date is equal current date" do
@@ -30,11 +30,11 @@ describe FutureDateValidator do
     
     it "adds an error on model" do
       subject.valid?
-      expect(subject.errors.keys).to include(:date)
+      expect(subject.errors.add :date)
     end
   end
   context "when date is greater than current date" do
-    before { subject.date = 1.day }
+    before { subject.date = Time.zone.now + 1.day }
   
     it "should be valid" do
       expect(subject.valid?).to be_truthy
