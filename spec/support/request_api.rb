@@ -13,3 +13,7 @@ module RequestAPI
     header.merge merge_with
   end
 end
+
+RSpec.configure do |config|
+  config.include RequestAPI, type: :request
+end
