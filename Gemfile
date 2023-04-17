@@ -15,6 +15,9 @@ gem 'devise_token_auth'
 # CORS
 gem 'rack-cors'
 
+# Rendering
+gem 'jbuilder', '~> 2.10.1'
+
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 
 gem "bootsnap", require: false
