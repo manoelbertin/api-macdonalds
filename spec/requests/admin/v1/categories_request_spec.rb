@@ -18,5 +18,19 @@ RSpec.describe "Admin::V1::Categories", type: :request do
     end
   end
 
+  context "POST /categories" do
+    let(:url) { "/admin/v1/categories" }
   
+    context "with valid params" do
+      let(:category_params) { { category: attributes_for(:category) }.to_json }
+    
+      it 'adds a new Category' do
+        expect do
+          post url, headers: auth_header(user), params: category_params
+        end.to change(Category, :count).by(1)
+      end
+    end
+  end
+    context "with invalid params" do
+    end
 end
