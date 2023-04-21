@@ -54,6 +54,11 @@ RSpec.describe "Admin::V1::Categories", type: :request do
         post url, headers: auth_header(user), params: category_invalid_params
         expect(body_json['errors']['fields']).to have_key('name')
       end
+
+      it 'returns unprocessable_entity status' do
+        post url, headers: auth_header(user), params: category_invalid_params
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
     end
   end
 end
