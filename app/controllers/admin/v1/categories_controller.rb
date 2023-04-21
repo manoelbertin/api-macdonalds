@@ -8,5 +8,12 @@ module Admin::V1
       @category = Category.new
       @category.attributes = category_params
     end
+
+    private
+    
+    def category_params
+      return {} unless params.has_key?(:category)
+      params.require(:category).permit(:id, :name)
+    end
   end
 end
