@@ -3,5 +3,10 @@ module Admin::V1
     def index
       @categories = Category.all
     end
+
+    def create
+      @category = Category.new
+      @category.attributes = category_params
+    end
   end
 end
