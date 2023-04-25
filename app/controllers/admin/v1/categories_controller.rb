@@ -8,10 +8,7 @@ module Admin::V1
       @category = Category.new
       @category.attributes = category_params
 
-      @category.save!
-      render :show
-    rescue
-      render_error(fields: @category.errors.messages)
+      save_category!
     end
 
     private
