@@ -11,7 +11,7 @@ module Admin::V1
       @category.save!
       render :show
     rescue
-      render json: { errors: { fields: @category.errors.messages } }, status: :unprocessable_entity
+      render_error(fields: @category.errors.messages)
     end
 
     private
