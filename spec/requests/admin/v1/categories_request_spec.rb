@@ -65,5 +65,16 @@ RSpec.describe "Admin::V1::Categories", type: :request do
   context "PATCH /categories/:id" do
     let(:category) { create(:category) }
     let(:url) { "/admin/v1/categories/#{category.id}" }
+
+    context "with valid params" do
+      let(:new_name) { 'My new Category' }
+      let(:category_params) { { category: { name: new_name } }.to_json }
+    end
+  
+    context "with invalid params" do
+      let(:category_invalid_params) do 
+        { category: attributes_for(:category, name: nil) }.to_json
+      end
+    end
   end
 end
