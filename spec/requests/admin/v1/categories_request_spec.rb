@@ -75,6 +75,13 @@ RSpec.describe "Admin::V1::Categories", type: :request do
         category.reload
         expect(category.name).to eq new_name
       end
+
+      it 'returns updated Category' do
+        patch url, headers: auth_header(user), params: category_params
+        category.reload
+        expected_category = category.as_json(only: %i(id name))
+        expect(body_json['category']).to eq expected_category
+      end
     end
   
     context "with invalid params" do
