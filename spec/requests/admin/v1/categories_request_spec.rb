@@ -93,6 +93,12 @@ RSpec.describe "Admin::V1::Categories", type: :request do
       let(:category_invalid_params) do 
         { category: attributes_for(:category, name: nil) }.to_json
       end
+      it 'does not update Category' do
+        old_name = category.name
+        patch url, headers: auth_header(user), params: category_invalid_params
+        category.reload
+        expect(category.name).to eq old_name
+      end
     end
   end
 end
