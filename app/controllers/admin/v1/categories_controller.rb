@@ -11,6 +11,9 @@ module Admin::V1
       save_category!
     end
 
+    def update
+    end
+    
     private
 
     def category_params
