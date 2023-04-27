@@ -82,6 +82,11 @@ RSpec.describe "Admin::V1::Categories", type: :request do
         expected_category = category.as_json(only: %i(id name))
         expect(body_json['category']).to eq expected_category
       end
+
+      it 'returns success status' do
+        patch url, headers: auth_header(user), params: category_params
+        expect(response).to have_http_status(:ok)
+      end
     end
   
     context "with invalid params" do
