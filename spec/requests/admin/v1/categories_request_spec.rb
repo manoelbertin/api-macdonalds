@@ -124,5 +124,9 @@ RSpec.describe "Admin::V1::Categories", type: :request do
     end.to change(Category, :count).by(-1)
   end
 
+  it 'returns success status' do
+    delete url, headers: auth_header(user)
+    expect(response).to have_http_status(:no_content)
+  end
   
 end
