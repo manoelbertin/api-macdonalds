@@ -29,3 +29,4 @@ RSpec.describe "Admin V1 Categories as :client", type: :request do
 
     before(:each) { delete url, headers: auth_header(user) }
   end
+end
