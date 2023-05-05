@@ -3,6 +3,7 @@ module Admin::V1
     class ForbiddenAccess < StandardError; end
 
     include Authenticatable
+    include SimpleErrorRenderable
 
     rescue_from ForbiddenAccess do
       render_error(message: "Forbidden access", status: :forbidden)
