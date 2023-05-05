@@ -16,5 +16,10 @@ module Admin::V1
     end
   end
 
+  private
+
+    def restrict_access_form_admin!
+      
+    end
   end
 end
