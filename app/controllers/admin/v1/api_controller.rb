@@ -12,8 +12,8 @@ module Admin::V1
     end
 
     rescue_from ForbiddenAccess do
-    
-  end
+      render_error(message: "Forbidden access", status: :forbidden)
+    end
   end
 
   end
