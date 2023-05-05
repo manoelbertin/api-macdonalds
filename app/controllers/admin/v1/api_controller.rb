@@ -10,5 +10,8 @@ module Admin::V1
       errors['message'] = message if message.present?
       render json: { errors: errors }, status: status
     end
+
+  rescue_from ForbiddenAccess
+
   end
 end
