@@ -4,6 +4,10 @@ module Admin::V1
 
     include Authenticatable
 
+    rescue_from ForbiddenAccess do
+      render_error(message: "Forbidden access", status: :forbidden)
+    end
+
     before_action :restrict_access_for_admin!
 
     def render_error(message: nil, fields: nil, status: :unprocessable_entity)
@@ -13,12 +17,7 @@ module Admin::V1
       render json: { errors: errors }, status: status
     end
 
-    rescue_from ForbiddenAccess do
-      render_error(message: "Forbidden access", status: :forbidden)
-    end
-  end
-
-  private
+    private
 
     def restrict_access_for_admin!
       raise ForbiddenAccess unless current_user.admin?
