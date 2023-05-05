@@ -11,7 +11,10 @@ module Admin::V1
       render json: { errors: errors }, status: status
     end
 
-  rescue_from ForbiddenAccess
+    rescue_from ForbiddenAccess do
+    
+  end
+  end
 
   end
 end
