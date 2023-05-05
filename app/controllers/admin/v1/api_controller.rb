@@ -19,7 +19,7 @@ module Admin::V1
   private
 
     def restrict_access_form_admin!
-      
+      raise ForbiddenAccess
     end
   end
 end
