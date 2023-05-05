@@ -4,6 +4,8 @@ module Admin::V1
 
     include Authenticatable
 
+    before_action :restrict_access_for_admin!
+
     def render_error(message: nil, fields: nil, status: :unprocessable_entity)
       errors = {}
       errors['fields'] = fields if fields.present?
@@ -18,7 +20,7 @@ module Admin::V1
 
   private
 
-    def restrict_access_form_admin!
+    def restrict_access_for_admin!
       raise ForbiddenAccess unless current_user.admin?
     end
   end
