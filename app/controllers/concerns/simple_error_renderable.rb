@@ -1,7 +1,7 @@
 module SimpleErrorRenderable
   extend ActiveSupport::Concern
 
-  include do
+  included do
     class_attribute :simple_error_partial
 
     def render_error(message: nil, fields: nil, status: :unprocessable_entity)
