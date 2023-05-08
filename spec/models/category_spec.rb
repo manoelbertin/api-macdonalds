@@ -11,4 +11,6 @@ RSpec.describe Category, type: :model do
   # relação DIRETA com nosso produto.
   it_behaves_like "name searchable concern", :category
   # aqui estamos incluindo um shared example e executando os testes dele.
+  it_behaves_like "paginatable concern", :category
+  # incluímos e executamos os testes
 end
