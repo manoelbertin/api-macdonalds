@@ -14,4 +14,7 @@ RSpec.describe Product, type: :model do
   it { is_expected.to have_many(:product_categories).dependent(:destroy) }
   # se eu apagar uma categoria, todas associações com essa categoria apagada será destruida
   it { is_expected.to have_many(:categories).through(:product_categories) }
+
+  #it_behaves_like "name searchable concern", :product
+  it_behaves_like "paginatable concern", :product
 end
