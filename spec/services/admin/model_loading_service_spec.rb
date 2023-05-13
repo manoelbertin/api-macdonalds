@@ -14,7 +14,7 @@ describe Admin::ModelLoadingService do
       let(:params) do
         { search: { name: "Search" }, order: { name: :desc }, page: 2, length: 4 }
       end
-
+    
       it "returns right :length following pagination" do
         service = described_class.new(Category.all, params)
         result_categories = service.call
