@@ -14,25 +14,25 @@ describe Admin::ModelLoadingService do
       let(:params) do
         { search: { name: "Search" }, order: { name: :desc }, page: 2, length: 4 }
       end
-    
+
       it "returns right :length following pagination" do
-        service = described_class.new(Category.all, params)
+        service = described_class.new(Category.all, params) # chamo o construtor passando o model a ser pesquisado e o parâmetro
         result_categories = service.call
         expect(result_categories.count).to eq 4
       end
 
       it "returns records following search, order and pagination" do
-        search_categories.sort! { |a, b| b[:name] <=> a[:name] }
+        search_categories.sort! { |a, b| b[:name] <=> a[:name] } # aqui ordenação descendente, caso queira ascendente mudo de posição o a com b.
         service = described_class.new(Category.all, params)
         result_categories = service.call
-        expected_categories = search_categories[4..7]
-        expect(result_categories).to contain_exactly *expected_categories
+        expected_categories = search_categories[4..7] # aqui só quero os 4 elementos da 2a página.
+        expect(result_categories).to contain_exactly *expected_categories # tenho q expandir o retorno.
       end
     end
 
     context "when params are not present" do
       it "returns default :length pagination" do
-        service = described_class.new(Category.all, nil)
+        service = described_class.new(Category.all, nil) # não passei paramentros dai o nil.
         result_categories = service.call
         expect(result_categories.count).to eq 10
       end

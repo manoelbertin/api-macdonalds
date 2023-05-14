@@ -1,6 +1,6 @@
 module Admin  
   class ModelLoadingService
-    def initialize(searchable_model, params = {})
+    def initialize(searchable_model, params = {})  # aqui o método construtor c/ 2 parametros
       @searchable_model = searchable_model
       @params = params
       @params ||= {}
