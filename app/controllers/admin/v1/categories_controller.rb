@@ -4,7 +4,7 @@ module Admin::V1
     
     def index
       # @categories = Category.all
-      
+      @categories = load_categories
     end
 
     def create
