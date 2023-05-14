@@ -30,6 +30,11 @@ module Admin::V1
       @category = Category.find(params[:id])
     end
 
+    def load_categories
+      permitted = params.permit({ search: :name }, { order: {} }, :page, :length)
+      Admin::ModelLoadingService.new(Category.all, permitted).call
+    end
+    
     def category_params
       return {} unless params.has_key?(:category)
       params.require(:category).permit(:id, :name)
