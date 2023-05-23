@@ -240,10 +240,12 @@ RSpec.describe Admin::ProductSavingService, type: :model do
 end
 
 def error_proof_call(*params)
+  # para eu ter mais informações sobre o erro para bom entendimento do próprio teste
   service = described_class.new(*params)
   begin
     service.call
   rescue => e
+    # rescue para que não quebre ao encontrar o erro e atrapalhe o fluxo de dados
   end
   return service
 end
