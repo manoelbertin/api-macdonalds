@@ -1,5 +1,7 @@
 module Admin  
   class ProductSavingService
-    class NotSavedProductError < StandartError; end
+    class NotSavedProductError < StandardError; end
+  
+    attr_reader :product, :errors
   end
 end
