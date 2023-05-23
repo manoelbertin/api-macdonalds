@@ -11,5 +11,14 @@ module Admin
       @errors = {}
       @product = product || Product.new
     end
+
+    def call
+      Product.transaction do
+        @product.attributes = @product_params.reject { |key| key == :productable }
+        build_productable
+      ensure
+        save!
+      end
+    end
   end
 end
