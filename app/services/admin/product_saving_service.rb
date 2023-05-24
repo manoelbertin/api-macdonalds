@@ -29,6 +29,7 @@ module Admin
     def build_productable
       # abaixo estou recebendo o nome do nosso productable em camelcase
       @product.productable ||= @product_params[:productable].camelcase.safe_constantize.new
+      # ou já há o productable ou vamos criar um new productable
       @product.productable.attributes = @productable_params
     end
   end
