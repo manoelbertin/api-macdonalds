@@ -5,11 +5,14 @@ module Admin
     attr_reader :product, :errors
 
     def initialize(params, product = nil)
-      params = params.deep_symbolize_keys
+      params = params.deep_symbolize_keys # tranformo em simbolo para salvar no BD.
+      # abaixo estou rejeitando o que vem do productable 
       @product_params = params.reject { |key| key == :productable_attributes }
+      # e pegando todo o restante ou um hash vazio {}.
       @productable_params = params[:productable_attributes] || {}
-      @errors = {}
-      @product = product || Product.new
+      @errors = {} # crio um hash vazio
+      @product = product || Product.new  # apanho o product ou crio um novo product
+      # pra gente trabahar em cima desse Product.
     end
 
     def call
