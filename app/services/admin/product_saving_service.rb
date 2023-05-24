@@ -22,15 +22,23 @@ module Admin
         @product.attributes = @product_params.reject { |key| key == :productable }
         build_productable
       ensure # garantir q próx método rodará!
-        save!
+        save! # esse save NÃO é do Active Record, daí temos que criá-lo lá embaixo!!
       end
     end
 
     def build_productable
       # abaixo estou recebendo o nome do nosso productable em camelcase
       @product.productable ||= @product_params[:productable].camelcase.safe_constantize.new
-      # ou já há o productable ou vamos criar um new productable
+      # ou já há o productable ou vamos criar um new productable.
       @product.productable.attributes = @productable_params
+    end
+
+    def save!
+      save_record!(@product.productable) if @product.productable.present?
+      save_record!(@product)
+      raise NotSavedProductError if @errors.present? # se há erro daí nós levantamos
+    rescue => e # vai se recuperar desse erro
+      raise NotSavedProductError # aqui caso tenha um erro que exploda possivelmente.
     end
   end
 end
