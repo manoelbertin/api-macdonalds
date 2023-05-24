@@ -21,12 +21,13 @@ module Admin
       Product.transaction do
         @product.attributes = @product_params.reject { |key| key == :productable }
         build_productable
-      ensure
+      ensure # garantir q próx método rodará!
         save!
       end
     end
 
     def build_productable
+      # abaixo estou recebendo o nome do nosso productable em camelcase
       @product.productable ||= @product_params[:productable].camelcase.safe_constantize.new
       @product.productable.attributes = @productable_params
     end
