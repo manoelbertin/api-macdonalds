@@ -16,6 +16,8 @@ module Admin
     end
 
     def call
+      # estamos trabalhando com 2 models e a transaction volta ao que era 
+      # isso consequentemente não deixa o banco de dados ficar comprometido.
       Product.transaction do
         @product.attributes = @product_params.reject { |key| key == :productable }
         build_productable
