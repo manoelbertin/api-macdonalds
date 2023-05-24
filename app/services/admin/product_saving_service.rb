@@ -40,5 +40,11 @@ module Admin
     rescue => e # vai se recuperar desse erro
       raise NotSavedProductError # aqui caso tenha um erro que exploda possivelmente.
     end
+
+    def save_record!(record)
+      record.save! # aqui eu chamo o save do ActiveRecord.
+    rescue ActiveRecord::RecordInvalid
+      @errors.merge!(record.errors.messages) # faço o merge (adiciono) em @erros.
+    end
   end
 end
