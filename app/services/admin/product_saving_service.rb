@@ -20,5 +20,10 @@ module Admin
         save!
       end
     end
+
+    def build_productable
+      @product.productable ||= @product_params[:productable].camelcase.safe_constantize.new
+      @product.productable.attributes = @productable_params
+    end
   end
 end
