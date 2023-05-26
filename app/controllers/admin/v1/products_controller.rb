@@ -5,11 +5,17 @@ module Admin::V1
     end
 
     def create
+      run_service
+    rescue Admin::ProductSavingService::NotSavedProductError
+      render_error(fields: @saving_service.errors)
     end
     
     def show; end
     
     def update
+      run_service
+    rescue Admin::ProductSavingService::NotSavedProductError
+      render_error(fields: @saving_service.errors)
     end
     
     def destroy
