@@ -4,6 +4,17 @@ module Admin::V1
       @products = load_products
     end
 
+    def create
+    end
+    
+    def show; end
+    
+    def update
+    end
+    
+    def destroy
+    end
+    
     private
     
     def load_products
