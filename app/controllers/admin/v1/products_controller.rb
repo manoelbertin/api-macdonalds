@@ -30,6 +30,15 @@ module Admin::V1
       permitted_params.merge(productable_params)
     end
 
+    def productable_params
+      productable_type = params[:product][:productable] || @product&.productable_type&.underscore
+      return unless productable_type.present?
+      productable_attributes = send("#{productable_type}_params")
+      { productable_attributes: productable_attributes }
+    end
     
+    def game_params
+      params.require(:product).permit(:mode, :release_date, :developer, :system_requirement_id)
+    end
   end
 end
