@@ -3,3 +3,4 @@ json.products do
     json.partial! product # chama _product.json.jbuilder
     json.partial! product.productable # chama _game.json.jbuilder
   end
+end
