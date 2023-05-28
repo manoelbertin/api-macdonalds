@@ -19,7 +19,7 @@ RSpec.describe "Admin V1 Products as :admin", type: :request do
         expected_return = products[0..9].map do |product| 
           build_game_product_json(product)
         end
-         #expect(body_json['products']).to contain_exactly *expected_return
+        expect(body_json['products']).to contain_exactly *expected_return
       end
 
       it "returns success status" do
@@ -27,9 +27,9 @@ RSpec.describe "Admin V1 Products as :admin", type: :request do
         expect(response).to have_http_status(:ok)
       end
 
-      #it_behaves_like "pagination meta attributes", { page: 1, length: 10, total: 10, total_pages: 1 } do
-        #before { get url, headers: auth_header(user) }
-      #end
+      it_behaves_like 'pagination meta attributes', { page: 1, length: 10, total_pages: 1 } do
+        before { get url, headers: auth_header(user) }
+      end
     end
 
     context "with search[name] param" do
@@ -46,7 +46,7 @@ RSpec.describe "Admin V1 Products as :admin", type: :request do
         expected_return = search_name_products[0..9].map do |product|
           build_game_product_json(product)
         end
-        #expect(body_json['products']).to contain_exactly *expected_return
+        expect(body_json['products']).to contain_exactly *expected_return
       end
 
       it "returns success status" do
@@ -54,9 +54,9 @@ RSpec.describe "Admin V1 Products as :admin", type: :request do
         expect(response).to have_http_status(:ok)
       end
 
-      #it_behaves_like 'pagination meta attributes', { page: 1, length: 10, total: 15, total_pages: 2 } do
-       # before { get url, headers: auth_header(user), params: search_params }
-      #end
+      it_behaves_like 'pagination meta attributes', { page: 1, length: 10, total_pages: 2 } do
+        before { get url, headers: auth_header(user), params: search_params }
+      end
     end
 
     context "with pagination params" do
@@ -75,7 +75,7 @@ RSpec.describe "Admin V1 Products as :admin", type: :request do
         expected_return = products[5..9].map do |product|
           build_game_product_json(product)
         end
-       # expect(body_json['products']).to contain_exactly *expected_return
+        expect(body_json['products']).to contain_exactly *expected_return
       end
 
       it "returns success status" do
@@ -83,9 +83,9 @@ RSpec.describe "Admin V1 Products as :admin", type: :request do
         expect(response).to have_http_status(:ok)
       end
 
-     # it_behaves_like 'pagination meta attributes', { page: 2, length: 5, total: 10, total_pages: 2 } do
-      #  before { get url, headers: auth_header(user), params: pagination_params }
-      #end
+      it_behaves_like 'pagination meta attributes', { page: 2, length: 5, total_pages: 2 } do
+        before { get url, headers: auth_header(user), params: pagination_params }
+      end
     end
 
     context "with order params" do
@@ -97,7 +97,7 @@ RSpec.describe "Admin V1 Products as :admin", type: :request do
         expected_return = products[0..9].map do |product|
           build_game_product_json(product)
         end
-       # expect(body_json['products']).to contain_exactly *expected_return
+        expect(body_json['products']).to contain_exactly *expected_return
       end
  
       it "returns success status" do
@@ -105,9 +105,9 @@ RSpec.describe "Admin V1 Products as :admin", type: :request do
         expect(response).to have_http_status(:ok)
       end
 
-     # it_behaves_like 'pagination meta attributes', { page: 1, length: 10, total: 10, total_pages: 1 } do
-      #  before { get url, headers: auth_header(user), params: order_params }
-     # end
+      it_behaves_like 'pagination meta attributes', { page: 1, length: 10, total_pages: 1 } do
+        before { get url, headers: auth_header(user), params: order_params }
+      end
     end
   end
 
@@ -144,7 +144,7 @@ RSpec.describe "Admin V1 Products as :admin", type: :request do
       it 'returns last added Product' do
         post url, headers: post_header, params: product_params
         expected_product = build_game_product_json(Product.last)
-       # expect(body_json['product']).to eq expected_product
+        expect(body_json['product']).to eq expected_product
       end
 
       it 'returns success status' do
@@ -266,7 +266,7 @@ RSpec.describe "Admin V1 Products as :admin", type: :request do
     it "returns requested Product" do
       get url, headers: auth_header(user)
       expected_product = build_game_product_json(product)
-     # expect(body_json['product']).to eq expected_product
+      expect(body_json['product']).to eq expected_product
     end
 
     it "returns success status" do
@@ -305,7 +305,7 @@ RSpec.describe "Admin V1 Products as :admin", type: :request do
         patch url, headers: patch_header, params: product_params
         product.reload
         expected_product = build_game_product_json(product)
-       # expect(body_json['product']).to eq expected_product
+        expect(body_json['product']).to eq expected_product
       end
 
       it 'returns success status' do
@@ -388,7 +388,7 @@ RSpec.describe "Admin V1 Products as :admin", type: :request do
         patch url, headers: patch_header, params: product_without_productable_params
         product.reload
         expected_product = build_game_product_json(product)
-      #  expect(body_json['product']).to eq expected_product
+        expect(body_json['product']).to eq expected_product
       end
 
       it 'returns success status' do
@@ -440,15 +440,12 @@ RSpec.describe "Admin V1 Products as :admin", type: :request do
       expect(expected_product_categories.ids).to contain_exactly(*present_product_categories_ids)
     end
   end
+end
 
-  def build_game_product_json(product)
-    json = product.as_json(only: %i(id name description price status featured))
-    json['image_url'] = rails_blob_url(product.image)
-    json['productable'] = product.productable_type.underscore
-    json['productable_id'] = product.productable_id
-    json['categories'] = product.categories.as_json
-    json.merge! product.productable.as_json(only: %i(mode release_date developer))
-    json['system_requirement'] = product.productable.system_requirement.as_json
-    json
-  end
+def build_game_product_json(product)
+  json = product.as_json(only: %i(id name description price status))
+  json['categories'] = product.categories.map(&:name)
+  json['image_url'] = rails_blob_url(product.image)
+  json['productable'] = product.productable_type.underscore
+  json.merge product.productable.as_json(only: %i(mode release_date developer))
 end
