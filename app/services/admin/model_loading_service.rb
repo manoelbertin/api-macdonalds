@@ -13,4 +13,11 @@ module Admin
                        .paginate(@params[:page].to_i, @params[:length].to_i)
     end
   end
+
+  private
+  
+  def fix_pagination_values
+    @pagination[:page] = @searchable_model.model::DEFAULT_PAGE if @pagination[:page] <= 0
+    @pagination[:length] = @searchable_model.model::MAX_PER_PAGE if @pagination[:length] <= 0
+  end
 end
