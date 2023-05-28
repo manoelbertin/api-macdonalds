@@ -3,6 +3,8 @@ module Admin
     def initialize(searchable_model, params = {})  # aqui o método construtor c/ 2 parametros
       @searchable_model = searchable_model
       @params = params || {}
+      @records = []
+      @pagination = { page: @params[:page].to_i, length: @params[:length].to_i }
     end
 
     def call
