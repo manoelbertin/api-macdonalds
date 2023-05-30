@@ -1,4 +1,4 @@
-json.page paginate[:page]
-json.lenght paginate[:lenght]
-json.total paginate[:total]
-json.total_pages paginate[:total_pages]
+json.page pagination[:page]
+json.length pagination[:length]
+json.total pagination[:total]
+json.total_pages pagination[:total_pages]
