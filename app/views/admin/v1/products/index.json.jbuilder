@@ -4,3 +4,7 @@ json.products do
     json.partial! product.productable # chama _game.json.jbuilder
   end
 end
+
+json.meta do
+  json.partial! 'shared/pagination', pagination: @loading_service.pagination
+end
