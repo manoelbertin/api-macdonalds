@@ -20,6 +20,11 @@ if Rails.env.development? || Rails.env.test?
         coupon_status = [:active, :inactive].sample
         create(:coupon, status: coupon_status)
       end
+
+      categories = []
+      25.times do
+        categories << create(:category, name: Faker::Game.unique.genre)
+      end
     end
   end
 end
