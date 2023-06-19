@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-  include NameSearchable
+  include LikeSearchable
   include Paginatable
   
   belongs_to :productable, polymorphic: true
@@ -9,11 +9,18 @@ class Product < ApplicationRecord
   validates :price, presence: true, numericality: { greater_than: 0 }
   validates :image, presence: true
   validates :status, presence: true
+  validates :featured, presence: true, if: -> { featured.nil? }
   
   enum status: { available: 1, unavailable: 2 }
   
   has_many :product_categories, dependent: :destroy
   has_many :categories, through: :product_categories
+  has_many :wish_items
+  has_many :line_items
 
   has_one_attached :image
+
+  def sells_count
+    LineItem.joins(:order).where(orders: { status: :finished }, product: self).sum(:quantity)
+  end
 end
